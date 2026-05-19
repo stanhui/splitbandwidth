@@ -56,8 +56,8 @@ Each row's per-domain values sum to the original Total. In `profile` mode, each 
 
 An interactive `result.html` chart is also generated:
 
-![Dark Theme](screenshots/dark.jpg)
-![Light Theme](screenshots/light.jpg)
+![Dark Theme](screenshots/dark.png)
+![Light Theme](screenshots/light.png)
 
 ## Chart Features / 图表特性
 
