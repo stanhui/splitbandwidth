@@ -4,40 +4,47 @@
 
 Split total bandwidth in a CSV file into random per-domain bandwidth curves, with an interactive offline HTML chart.
 
-## Features / 功能
+## Screenshot / 效果展示
 
-- 支持两种拆分模式：`profile`（各域名保持相对稳定的占比曲线）和 `independent`（每行独立随机）
-- 输出单文件 CSV（所有域名合并为列）或多文件 CSV（每个域名一个文件）
-- 自动生成 Grafana 风格的离线 HTML 图表（内嵌 ECharts，无需网络）
-- 图表支持深色/浅色主题切换、图例多选独显/隐藏、时间轴缩放
-- 可设置随机种子以复现结果
+> 打开 `examples/split_result.html` 即可在浏览器中查看完整交互效果。
 
----
+![Dark Theme](screenshots/dark.png)
+![Light Theme](screenshots/light.png)
 
-- Two split modes: `profile` (stable per-domain share curves) and `independent` (fully random per row)
-- Output as a single merged CSV or multiple per-domain CSV files
-- Auto-generates a Grafana-style offline HTML chart (ECharts embedded, no network needed)
-- Chart supports dark/light theme toggle, legend multi-select isolate/hide, time-axis zoom
-- Reproducible results via random seed
+**图表特性 / Chart Features:**
+- 🌗 深色/浅色主题切换 (Dark/Light theme toggle)
+- 🔍 Isolate 模式：单击图例多选独显 (Click legend to multi-select & isolate)
+- 🚫 Hide 模式：单击图例隐藏指定线 (Click legend to hide lines)
+- 📊 时间轴缩放 (Time-axis zoom with slider & mouse wheel)
+- 📐 Y 轴自动换算单位 (Auto unit: bps → Kbps → Mbps → Gbps → Tbps, 1000-based)
+- 📡 完全离线，无需网络 (Fully offline, no network needed)
 
 ## Install / 安装
 
+### Download Binary / 下载可执行文件
+
+从 [Releases](https://github.com/stanhui/splitbandwidth/releases) 下载对应平台的可执行文件：
+
+| Platform | File |
+|----------|------|
+| Linux x86_64 | `splitbandwidth_linux_amd64` |
+| Linux ARM64 | `splitbandwidth_linux_arm64` |
+| macOS Intel | `splitbandwidth_darwin_amd64` |
+| macOS Apple Silicon | `splitbandwidth_darwin_arm64` |
+| Windows x86_64 | `splitbandwidth_windows_amd64.exe` |
+
+### Build from Source / 从源码编译
+
 ```bash
-go install github.com/user/splitbandwidth@latest
+go install github.com/stanhui/splitbandwidth@latest
 ```
 
-Or build from source:
+Or:
 
 ```bash
-git clone https://github.com/user/splitbandwidth.git
+git clone https://github.com/stanhui/splitbandwidth.git
 cd splitbandwidth
 go build -o splitbandwidth .
-```
-
-Cross-compile for macOS Apple Silicon:
-
-```bash
-GOOS=darwin GOARCH=arm64 go build -o splitbandwidth_darwin_arm64 .
 ```
 
 ## Usage / 用法
@@ -73,7 +80,7 @@ splitbandwidth traffic.csv domains.txt -o result.csv --no-chart
 | `--bandwidth-col` | `B` | 带宽列（列名、列号或字母）/ Bandwidth column |
 | `--seed` | random | 随机种子 / Random seed |
 | `--decimal-places` | `0` | 输出小数位数 / Decimal places |
-| `--mode` | `profile` | 拆分模式 / Split mode: `profile` or `independent` |
+| `--mode` | `profile` | 拆分模式: `profile` or `independent` |
 | `--domain-spread` | `1.2` | 域名间差距（仅 profile）/ Domain spread |
 | `--volatility` | `0.18` | 时间波动（仅 profile）/ Time volatility |
 | `--smoothness` | `0.98` | 曲线平滑度（仅 profile，< 1）/ Smoothness |
@@ -96,15 +103,14 @@ cdn2.example.com
 cdn3.example.com
 ```
 
-### Chart / 图表
+## Release / 发布
 
-生成的 HTML 图表完全离线可用，特性：
+打 tag 后 GitHub Actions 自动编译并发布所有平台的可执行文件：
 
-- 🌗 深色/浅色主题一键切换
-- 🔍 Isolate 模式：单击图例选中域名（可多选），只高亮选中线，tooltip 只显示选中数据
-- 🚫 Hide 模式：单击图例隐藏/显示指定线
-- 📊 底部时间轴滑块 + 鼠标滚轮缩放
-- 📐 Y 轴自动换算单位（bps → Kbps → Mbps → Gbps → Tbps，1000 进制）
+```bash
+git tag v1.0.0
+git push origin v1.0.0
+```
 
 ## License
 

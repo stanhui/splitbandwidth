@@ -2,3 +2,4 @@ dist/
 splitbandwidth
 *.csv
 *.html
+!examples/*.html
